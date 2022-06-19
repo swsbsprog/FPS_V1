@@ -22,25 +22,26 @@ public class Player : MonoBehaviour
 
         ////Vector3 move = new Vector3(0, 0, 0); ///Vector3.zero;
         Vector3 move = Vector3.zero;
-        if (Input.GetKey(KeyCode.W)) // z
+        if (Input.GetKey(KeyCode.W)) // z 앞뒤
             move.z = 1;
         if (Input.GetKey(KeyCode.S))
             move.z = -1;
-        if (Input.GetKey(KeyCode.A)) // x
+        if (Input.GetKey(KeyCode.A)) // x 사이드, // 왼쪽.
             move.x = -1;
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D)) // 오른쪽
             move.x = 1;
 
         // move 움직임이 있다면 런 애니메이션 해라.
         // 움직임이 없다면 idle애니메이션 해라.
         //if (move.x != 0 || move.z != 0) 
         //if (move.magnitude > 0)
-        if (move.sqrMagnitude> 0)
-        {
-            animator.Play("run");
-        }
-        else
-            animator.Play("idle");
+
+        float forward = move.z;
+        float side = move.x;
+
+        //animator.SetFloat("Speed", move.magnitude);
+        animator.SetFloat("forward", forward);
+        animator.SetFloat("side", side);
 
 
         move = move * speed * Time.deltaTime;
