@@ -46,7 +46,9 @@ public class Player : MonoBehaviour
     }
 
 
-    public GameObject bulletHole;
+    public GameObject bullet;
+    public Transform firePos;
+    //public 
     void Update()
     {
         FireMissile();
@@ -71,7 +73,7 @@ public class Player : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Horizontal") * mouseSensitivity * Time.deltaTime;
         xRotation += mouseX;
-        xRotation = Mathf.Clamp(xRotation, -180, 180);
+        //xRotation = Mathf.Clamp(xRotation, -180, 180);
         transform.rotation = Quaternion.AngleAxis(xRotation, Vector3.up);
     }
 
@@ -81,11 +83,15 @@ public class Player : MonoBehaviour
         {
             animator.SetTrigger("fire");
 
+            var newBullet = Instantiate(bullet);
+            newBullet.transform.position = firePos.position;
+            
+
             float centerX = Screen.width / 2;
             float centerY = Screen.height / 2;
             //print("마우스 클릭했다 : " + Input.mousePosition);
             print($"x:{centerX}, y:{centerY}, 마우스 클릭했다 : {Input.mousePosition}"); // 추천
-            //print(string.Format($"x:{0}, y:{1}, 마우스 클릭했다 : {2}", centerX, centerY, Input.mousePosition));
+                                                                                  //print(string.Format($"x:{0}, y:{1}, 마우스 클릭했다 : {2}", centerX, centerY, Input.mousePosition));
 
             Vector3 centerPos = new Vector3(centerX, centerY, 0);
 
@@ -97,18 +103,11 @@ public class Player : MonoBehaviour
             Physics.Raycast(ray, out RaycastHit hit);
             if (hit.transform != null)
             {
-                var newGo = Instantiate(bulletHole);
-                newGo.transform.position = hit.point;
-                //hit.normal x = 90, y, z = 0;
-                //newGo.transform.rotation = Quaternion.Euler(hit.normal); // 범위가 다름
-                var bulletTr = newGo.transform;
-                bulletTr.rotation = Quaternion.FromToRotation(bulletTr.up, hit.normal) * bulletTr.rotation;
-                bulletTr.Translate(0, bulletOffset, 0);
+                newBullet.transform.LookAt(hit.point);
             }
         }
     }
 
-    public float bulletOffset = 0.001f;
 
     private void UpdateMove()
     {
