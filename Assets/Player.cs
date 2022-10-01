@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-
+        //Cursor.visible = false;
         //int myInt = 1;
         //Fn(myInt); //2
         //print(myInt); // 1
@@ -48,7 +49,34 @@ public class Player : MonoBehaviour
     public GameObject bulletHole;
     void Update()
     {
+        FireMissile();
+        UpdateRotation();
+        UpdateMove();
+        ToggleCursor();
+    }
 
+    public bool cursorLocked;
+    private void ToggleCursor()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+            cursorLocked = !cursorLocked;
+
+        Cursor.visible = !cursorLocked;
+        Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
+    }
+
+    public float xRotation;
+    public float mouseSensitivity = 1;
+    private void UpdateRotation()
+    {
+        float mouseX = Input.GetAxis("Horizontal") * mouseSensitivity * Time.deltaTime;
+        xRotation += mouseX;
+        xRotation = Mathf.Clamp(xRotation, -180, 180);
+        transform.rotation = Quaternion.AngleAxis(xRotation, Vector3.up);
+    }
+
+    private void FireMissile()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             float centerX = Screen.width / 2;
@@ -67,7 +95,7 @@ public class Player : MonoBehaviour
             Physics.Raycast(ray, out RaycastHit hit);
             if (hit.transform != null)
             {
-                var newGo =Instantiate(bulletHole);
+                var newGo = Instantiate(bulletHole);
                 newGo.transform.position = hit.point;
                 //hit.normal x = 90, y, z = 0;
                 //newGo.transform.rotation = Quaternion.Euler(hit.normal); // 범위가 다름
@@ -76,9 +104,8 @@ public class Player : MonoBehaviour
                 bulletTr.Translate(0, bulletOffset, 0);
             }
         }
-
-        UpdateMove();
     }
+
     public float bulletOffset = 0.001f;
 
     private void UpdateMove()

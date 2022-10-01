@@ -13872,14 +13872,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008188e01210cba48b73f50f0e2dc7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 4
   animator: {fileID: 0}
   dir: {x: 0, y: 0, z: 0}
   range: 1
   targetPosition: {fileID: 1733590356}
   bulletHole: {fileID: 360108473435763680, guid: 97192cb00563a114aaef05bc1fa59ecb,
     type: 3}
+  cursorLocked: 0
+  xRotation: 0
+  mouseSensitivity: 2
   bulletOffset: 0.001
+--- !u!136 &1171773111
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162257672}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.4
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.2, z: 0}
+--- !u!54 &1171773112
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162257672}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1001 &1173750467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26267,6 +26300,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3463862541475869877, guid: 98ab21b12b6301c40a7afc18d83a0ff1,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463862541475869877, guid: 98ab21b12b6301c40a7afc18d83a0ff1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463862541475869877, guid: 98ab21b12b6301c40a7afc18d83a0ff1,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463862541475869877, guid: 98ab21b12b6301c40a7afc18d83a0ff1,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.39
       objectReference: {fileID: 0}
@@ -26314,6 +26362,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463862541475869877, guid: 98ab21b12b6301c40a7afc18d83a0ff1,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3463862541475965141, guid: 98ab21b12b6301c40a7afc18d83a0ff1,
         type: 3}
