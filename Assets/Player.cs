@@ -79,6 +79,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            animator.SetTrigger("fire");
+
             float centerX = Screen.width / 2;
             float centerY = Screen.height / 2;
             //print("마우스 클릭했다 : " + Input.mousePosition);
