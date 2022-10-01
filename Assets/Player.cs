@@ -8,9 +8,11 @@ public class Player : MonoBehaviour
     public float speed = 1;
 
     public Animator animator;
+    public Rigidbody rb;
     private void Start()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
         //Cursor.visible = false;
         //int myInt = 1;
         //Fn(myInt); //2
@@ -107,7 +109,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    Vector3 move;
 
     private void UpdateMove()
     {
@@ -119,7 +121,7 @@ public class Player : MonoBehaviour
         //Vector3  x,y,z float 이 3개
 
         ////Vector3 move = new Vector3(0, 0, 0); ///Vector3.zero;
-        Vector3 move = Vector3.zero;
+        move = Vector3.zero;
         if (Input.GetKey(KeyCode.W)) // z 앞뒤
             move.z = 1;
         if (Input.GetKey(KeyCode.S))
@@ -137,13 +139,17 @@ public class Player : MonoBehaviour
         float forward = move.z;
         float side = move.x;
 
-        //animator.SetFloat("Speed", move.magnitude);
         animator.SetFloat("forward", forward);
         animator.SetFloat("side", side);
+    }
+    private void FixedUpdate()
+    {
+        Vector3 localMove = move.z * transform.forward;
+        localMove += move.x * transform.right;
 
-
-        move = move * speed * Time.deltaTime;
-
-        transform.Translate(move);
+        var pos = rb.position;
+        localMove = localMove * speed * Time.deltaTime;
+        pos += localMove;
+        rb.position = pos;
     }
 }
