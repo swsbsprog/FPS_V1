@@ -69,14 +69,11 @@ public class Player : MonoBehaviour
         Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
-    public float xRotation;
-    public float mouseSensitivity = 1;
     private void UpdateRotation()
     {
-        float mouseX = Input.GetAxis("Horizontal") * mouseSensitivity * Time.deltaTime;
-        xRotation += mouseX;
-        //xRotation = Mathf.Clamp(xRotation, -180, 180);
-        transform.rotation = Quaternion.AngleAxis(xRotation, Vector3.up);
+        Vector3 rot = Vector3.zero;
+        rot.y = Camera.main.transform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.Euler(rot);
     }
 
     private void FireMissile()
